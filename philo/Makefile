@@ -6,7 +6,7 @@
 #    By: yabukirento <yabukirento@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/11 00:34:53 by yabukirento       #+#    #+#              #
-#    Updated: 2025/03/12 13:58:54 by yabukirento      ###   ########.fr        #
+#    Updated: 2025/03/12 21:24:33 by yabukirento      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ SRCS =	./srcs/main.c \
 		./srcs/loop.c \
 		./srcs/utils/atol.c \
 		./srcs/utils/strncmp.c \
-		./srcs/philo_utils/find_last.c \
+		./srcs/philo_utils/check_alldied.c \
+		./srcs/philo_utils/print_status.c \
 
 OBJS = $(SRCS:.c=.o)
 

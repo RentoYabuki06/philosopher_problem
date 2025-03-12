@@ -6,66 +6,67 @@
 /*   By: yabukirento <yabukirento@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 12:04:37 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/03/12 12:26:14 by yabukirento      ###   ########.fr       */
+/*   Updated: 2025/03/12 22:10:13 by yabukirento      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/philo.h"
 
-static bool	ft_new_philo(int i,int num_philo, char **argv)
+static bool	ft_init_mutex(t_info **info)
 {
-	t_philo	*new_philo;
-	
-	new_philo = (t_philo *)malloc(sizeof(t_philo));
-	if (!new_philo)
-		return (NULL);
-	new_philo->left = i - 1;
-	new_philo->right = i;
-	if (i == num_philo)
-		new_philo->right = 0;
-	new_philo->is_death = false;
-	new_philo->is_eating = false;
-	new_philo->is_sleeping = false;
-	new_philo->is_thnking = false;
-	new_philo->last_time_eating = 0;
-	if (i % 2 == 0)
-		new_philo->last_time_eating = 10;
-	new_philo->start_time = 0;
-	new_philo->index = i;
-	new_philo->next = NULL;
+	int	i;
+
+	(*info)->forks = (pthread_t)malloc(sizeof(pthread_t) * (*info)->num_philo);
+	if (!(*info)->forks)
+		return (false);
+	i = 0;
+	while (i < (*info)->num_philo)
+	{
+		if (pthread_mutex_init(&(*info)->forks[i], NULL) != 0)
+			return (false);
+		i++;
+	}
+	if (pthread_mutex_init(&(*info)->eat_mutex, NULL))
+		return (false);
+	if (pthread_mutex_init(&(*info)->died_mutex, NULL))
+		return (false);
+	if (pthread_mutex_init(&(*info)->print_mutex, NULL))
+		return (false);
 	return (true);
 }
 
-static void	ft_append_philo(t_philo *new_philo, t_philo **philo)
+static bool	ft_init_philo(t_info **info)
 {
-	if (!*philo)
+	int	i;
+
+	(*info)->philo = (t_philo *)malloc(sizeof(t_philo) * (*info)->num_philo);
+	if (!((*info)->philo))
+		return (false);
+	i = 0;
+	while (i < (*info)->num_philo)
 	{
-		*philo = new_philo;
-		return ;
+		(*info)->philo[i].left = false;
+		(*info)->philo[i].right = false;
+		(*info)->philo[i].count_eat = 0;
+		(*info)->philo[i].last_time_eating = 0;
+		(*info)->philo[i].index = i + 1;
+		(*info)->philo[i].info = info;
 	}
-	while ((*philo)->next)
-		*philo = (*philo)->next;
-	(*philo)->next = new_philo;
+	return (true);
 }
 
-bool	ft_init(int argc, char **argv, t_philo **philo)
+bool	ft_init(int argc, char **argv, t_info	**info)
 {
-	int		i;
-	int		num_philo;
-	t_philo	*new_philo;
-	t_philo	*current;
-
-	i = 1;
-	num_philo = ft_atol(argv[2]);
-	new_philo = NULL;
-	current = *philo;
-	while (i <= num_philo)
-	{
-		new_philo = ft_new_philo(i, num_philo, argv);
-		if (!new_philo)
-			return (false);
-		ft_append_philo(new_philo, philo);
-		i++;
-	}
+	(*info)->num_philo = ft_atoi(argv[1]);
+	(*info)->time_to_die = ft_atoi(argv[2]);
+	(*info)->time_to_eat = ft_atoi(argv[3]);
+	(*info)->time_to_sleep = ft_atoi(argv[4]);
+	(*info)->must_eat_times = -1;
+	if (argc == 6)
+		(*info)->must_eat_times = ft_atoi(argv[5]);
+	if (!ft_init_mutex(info))
+		return (false);
+	if (!ft_init_philo(info))
+		return (false);
 	return (true);
 }

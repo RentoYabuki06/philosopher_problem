@@ -6,11 +6,11 @@
 /*   By: yabukirento <yabukirento@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 00:37:29 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/03/12 13:58:08 by yabukirento      ###   ########.fr       */
+/*   Updated: 2025/03/12 21:22:44 by yabukirento      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/philo.h"
+#include "./../includes/philo.h"
 
 static int	ft_check_argv(int argc, char **argv)
 {
@@ -26,7 +26,7 @@ static int	ft_check_argv(int argc, char **argv)
 		num = ft_atol(argv[i]);
 		if (num == 0 && !ft_strncmp(argv[1], "0\0", 2))
 			return (false);
-		if (num < 0  || num > INT_MAX)
+		if (num <= 0  || num > INT_MAX)
 			return (false);
 	}
 	return (true);
@@ -34,16 +34,16 @@ static int	ft_check_argv(int argc, char **argv)
 
 int	main(int argc, char **argv)
 {
-	t_philo	*philo;
+	t_info	*info;
 
-	philo = NULL;
+	info = NULL;
 	if (ft_check_argv(argc, argv))
 		return (EXIT_FAILURE);
-	if (ft_init(argc, argv, &philo))
+	if (ft_init(argc, argv, &info))
 		return (EXIT_FAILURE);
-	if (ft_loop(argv, &philo))
+	if (ft_loop(argv, &info))
 	{
-		ft_free(&philo);
+		ft_free(&info);
 		return(EXIT_FAILURE);
 	}
 	ft_free(&philo);

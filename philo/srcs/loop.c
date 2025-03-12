@@ -6,28 +6,11 @@
 /*   By: yabukirento <yabukirento@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:58:16 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/03/12 14:25:42 by yabukirento      ###   ########.fr       */
+/*   Updated: 2025/03/12 21:09:37 by yabukirento      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/philo.h"
-
-static void	ft_print(char *act, int time, int index_philo)
-{
-	// 1つずつスレッドより書き出していくイメージ
-	pthread_mutex_lock();
-	if (ft_strncmp(act, "take\0", 5) == 0)
-		printf("%d %d has taken a fork\n",time, index_philo);
-	if (ft_strncmp(act, "eat\0", 4) == 0)
-		printf("%d %d is eating\n",time, index_philo);
-	if (ft_strncmp(act, "sleep\0", 6) == 0)
-		printf("%d %d is sleeping\n",time, index_philo);
-	if (ft_strncmp(act, "think\0", 6) == 0)
-		printf("%d %d is thinking\n",time, index_philo);
-	if (ft_strncmp(act, "die\0", 4) == 0)
-		printf("%d %d died\n",time, index_philo);
-	pthread_mutex_unlock();
-}
+#include "./../includes/philo.h"
 
 static void	ft_take_spoon(char *side, t_philo **philo, int index)
 {
