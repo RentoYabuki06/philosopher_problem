@@ -6,11 +6,17 @@
 #    By: yabukirento <yabukirento@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/11 00:34:53 by yabukirento       #+#    #+#              #
-#    Updated: 2025/03/11 00:36:28 by yabukirento      ###   ########.fr        #
+#    Updated: 2025/03/12 13:58:54 by yabukirento      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS =	./main.c \
+SRCS =	./srcs/main.c \
+		./srcs/init.c \
+		./srcs/free.c \
+		./srcs/loop.c \
+		./srcs/utils/atol.c \
+		./srcs/utils/strncmp.c \
+		./srcs/philo_utils/find_last.c \
 
 OBJS = $(SRCS:.c=.o)
 
