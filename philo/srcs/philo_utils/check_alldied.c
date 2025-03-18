@@ -6,22 +6,23 @@
 /*   By: yabukirento <yabukirento@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:44:22 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/03/12 13:46:45 by yabukirento      ###   ########.fr       */
+/*   Updated: 2025/03/14 13:54:41 by yabukirento      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../includes/philo.h"
 
-bool	*ft_check_alldied(t_philo *philo)
+bool	*ft_check_alldied(t_info *info)
 {
-	if (!philo)
+	int	i;
+
+	i = 0;
+	if (!info)
 		return (NULL);
-	while (philo)
+	while (++i <info->num_philo)
 	{
-		if (philo->is_death)
+		if (info->philo[i].is_death)
 			return (false);
-		if (philo->next)
-			philo = philo->next;
 	}
 	return (true);
 }

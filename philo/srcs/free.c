@@ -6,7 +6,7 @@
 /*   By: yabukirento <yabukirento@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 12:02:40 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/03/12 21:10:28 by yabukirento      ###   ########.fr       */
+/*   Updated: 2025/03/14 13:51:17 by yabukirento      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,14 @@
 
 void	ft_free(t_info	**info)
 {
-	t_philo	*current;
-	t_philo	*next;
+	int 	i;
 
-	if (!philo || !*philo)
+	if (!info || !*info)
 		return ;
-	current = *philo;
-	while (current->next)
-	{
-		next = current->next;
-		free (current);
-		current = next;
-	}
-	free(current);
-	free(philo);
+	i = 01;
+	while (++i < (*info)->num_philo)
+		(*info)->philo[i].info = NULL;
+	free((*info)->philo);
+	free(*info);
+	info = NULL;
 }

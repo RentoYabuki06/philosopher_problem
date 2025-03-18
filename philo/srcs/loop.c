@@ -6,7 +6,7 @@
 /*   By: yabukirento <yabukirento@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:58:16 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/03/12 21:09:37 by yabukirento      ###   ########.fr       */
+/*   Updated: 2025/03/14 14:07:56 by yabukirento      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,24 +95,16 @@ static void	*ft_action(t_philo *philo, int *spoon)
 		ft_eat();
 }
 
-bool	ft_loop(char **argv, t_philo **philo)
+static long long get_current_time(void)
 {
-	t_philo					**top_philo;
-	pthread_t				*thread;
-	const pthread_attr_t	**attr;
-	void					*arg;
+	struct timeval	tv;
 
-	top_philo = philo;
-	while (*philo)
-	{
-		if (pthread_create(thread, attr , ft_action(*philo), arg) == 0)
-			return (false);
-		if ((*philo)->next)
-			return (true);
-		*philo = (*philo)->next;
-	}
-	while (*top_philo)
-	{
-		pthread_detach(thread);
-	}
+	gettimeofday(&tv, NULL);
+	return (tv.tv_usec / 1000 + tv.tv_sec * 1000)
+}
+
+bool	ft_loop(t_info **info)
+{
+	(*info)->time_start = get_current_time();
+	if (create)
 }

@@ -6,7 +6,7 @@
 /*   By: yabukirento <yabukirento@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 12:04:37 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/03/12 22:10:13 by yabukirento      ###   ########.fr       */
+/*   Updated: 2025/03/14 14:00:34 by yabukirento      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,12 @@ static bool	ft_init_philo(t_info **info)
 	{
 		(*info)->philo[i].left = false;
 		(*info)->philo[i].right = false;
+		(*info)->philo[i].is_death = false;
 		(*info)->philo[i].count_eat = 0;
 		(*info)->philo[i].last_time_eating = 0;
 		(*info)->philo[i].index = i + 1;
 		(*info)->philo[i].info = info;
+		i++;
 	}
 	return (true);
 }
