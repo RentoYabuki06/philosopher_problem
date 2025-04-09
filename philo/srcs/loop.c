@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabukirento <yabukirento@student.42.fr>    +#+  +:+       +#+        */
+/*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:58:16 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/03/14 14:07:56 by yabukirento      ###   ########.fr       */
+/*   Updated: 2025/04/09 13:44:10 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../includes/philo.h"
+#include "philo.h"
 
-static void	ft_take_spoon(char *side, t_philo **philo, int index)
+static void	ft_take_spoon(char *side, t_philo **philo, int index, int time)
 {
 	// スプーンとphiloの情報どちらもlockして書き換えてからアンロック
-	pthread_mutex_lock();
+	pthread_mutex_lock(fork);
 	if (ft_strncmp(side, "left\0", 5) == 0)
 	{
 		(*philo)->left = true;
@@ -29,52 +29,31 @@ static void	ft_take_spoon(char *side, t_philo **philo, int index)
 		ft_print("take", now_time, index);
 	}
 	pthread_mutex_unlock();
+	printf("%d %d has taken a fork\n", time, (*philo)->index);
 }
 
-static void	ft_eat(t_philo **philo)
+static void	ft_eat(t_philo **philo, int time)
 {
-	int spentime;
-
-	spentime = 0;
-	pthread_mutex_lock();
-	ft_print("eat", now_time, (*philo)->index);
-	while ((*philo)->start_time - now_time > 0)
-	{
-		now_time++; //時間が過ぎるまで
-	}
-	(*philo)->is_eating = false;
-	(*philo)->last_time_eating = now_time;
-	pthread_mutex_unlock();
-	ft_sleep(philo);
+	//
 }
 
-static void	ft_sleep(t_philo **philo)
+static void	ft_sleep(t_philo **philo, int time)
 {
-
-	(*philo)->is_sleeping = true;
-	ft_print("sleep", now_time, (*philo)->index);
-	(*philo)->is_sleeping = false;
-	ft_think();
+	ft_print_status();
 }
 
 static void ft_think(t_philo **philo)
 {
-	(*philo)->is_sleeping = true;
-	ft_print("sleep", now_time, (*philo)->index);
-	(*philo)->is_sleeping = false;
-	if (now_time - (*philo)->last_time_eating < time_to_die)
-		ft_die();
-	
+	printf("%d %d is thinking\n", time, (*philo)->index);
 }
 
 static void	ft_die(t_philo **philo)
 {
-	ft_print("die", now_time, (*philo)->index);
-	(*philo)->is_death = true;
+	printf("%d %d died\n", time, (*philo)->index);
 }
 
 // indexとかbit処理がずれている前提なので後で修正
-static void	*ft_action(t_philo *philo, int *spoon)
+void	*ft_action(t_philo *philo, int *spoon)
 {
 	int	index_philo;
 
@@ -95,16 +74,18 @@ static void	*ft_action(t_philo *philo, int *spoon)
 		ft_eat();
 }
 
-static long long get_current_time(void)
+void	*ft_monitor(t_info **info)
 {
-	struct timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	return (tv.tv_usec / 1000 + tv.tv_sec * 1000)
+	
 }
 
 bool	ft_loop(t_info **info)
 {
+	pthread_t	thread_monitor;
+
 	(*info)->time_start = get_current_time();
-	if (create)
+	ft_philo_thread_create(info);
+	ft_philo_thread_join(info);
+	pthread_create(&thread_monitor, NULL, ft_monitor, (void *)info);
+	pthread_join(thread_monitor, NULL);
 }

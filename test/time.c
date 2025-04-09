@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <sys/time.h>
+#include <time.h>
 
 /*
  * gettimeofday関数の使用例
@@ -33,16 +34,16 @@ int main() {
         printf("UNIXエポックからの経過秒数: %ld\n", tv.tv_sec);
         
         // 2. マイクロ秒部分を表示（0-999999の範囲）
-        printf("マイクロ秒: %d\n", tv.tv_usec);
+        printf("マイクロ秒: %ld\n", tv.tv_usec);
         
         // 3. 人間が読みやすい形式に変換
         time_t now = tv.tv_sec;
         struct tm *tm_info = localtime(&now);  // ローカルタイムに変換
         char buffer[26];
         // strftimeを使用して日時を指定したフォーマットに変換
-        strftime(buffer, 26, "%Y-%m-%d %H:%M:%S", tm_info);
+        strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", tm_info);
         // マイクロ秒部分を6桁で表示（%06d）
-        printf("現在時刻: %s.%06d\n", buffer, tv.tv_usec);
+        printf("現在時刻: %s.%06ld\n", buffer, tv.tv_usec);
     } else {
         printf("gettimeofday関数の呼び出しに失敗しました\n");
         return 1;

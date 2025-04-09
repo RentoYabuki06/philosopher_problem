@@ -1,48 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   atoi.c                                             :+:      :+:    :+:   */
+/*   thread_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/12 11:15:04 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/04/09 12:21:05 by ryabuki          ###   ########.fr       */
+/*   Created: 2025/04/09 13:40:22 by ryabuki           #+#    #+#             */
+/*   Updated: 2025/04/09 13:40:34 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	ft_sign(const char *str, int *sign)
+void	ft_philo_thread_create(t_info **info)
 {
 	int	i;
 
 	i = 0;
-	if (str[i] == '+' || str[i] == '-')
+	while (i < (*info)->num_philo)
 	{
-		if (str[i] == '-')
-			*sign = -1;
+		pthread_create(&((*info)->philo[i].thread), NULL, ft_action((*info)->philo[i]), NULL);
 		i++;
 	}
-	return (i);
 }
 
-int	ft_atoi(const char *str)
+void	ft_philo_thread_join(t_info **info)
 {
-	int			i;
-	int			sign;
-	long long	ans;
+	int	i;
 
-	ans = 0;
-	sign = 1;
-	i = ft_sign(str, &sign);
-	while (str[i] >= '0' && str[i] <= '9')
+	i = 0;
+	while (i < (*info)->num_philo)
 	{
-		if ((ans > (INT_MAX / 10))
-			|| (ans == (INT_MAX / 10) && (str[i] >= '8' && str[i] <= '9')))
-			return (false);
-		ans *= 10;
-		ans += str[i] - '0';
+		pthread_join((*info)->philo[i].thread, NULL);
 		i++;
 	}
-	return ((int)ans * sign);
 }

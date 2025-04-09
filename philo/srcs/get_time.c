@@ -1,33 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   get_time.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/12 12:02:40 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/04/09 12:09:18 by ryabuki          ###   ########.fr       */
+/*   Created: 2025/04/09 12:22:41 by ryabuki           #+#    #+#             */
+/*   Updated: 2025/04/09 13:14:23 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_free_info(t_info	**info)
+long long get_current_time(void)
 {
-	int 	i;
+	struct timeval	tv;
 
-	if (!info || !*info)
-		return ;
-	i = 0;
-	while (i < (*info)->num_philo)
-	{
-		pthread_mutex_destroy(&(*info)->forks[i]);
-		i++;
-	}
-	pthread_mutex_destroy(&(*info)->eat_mutex);
-	pthread_mutex_destroy(&(*info)->died_mutex);
-	pthread_mutex_destroy(&(*info)->print_mutex);
-	free((*info)->philo);
-	free(*info);
-	info = NULL;
+	gettimeofday(&tv, NULL);
+	return (tv.tv_usec / 1000 + tv.tv_sec * 1000);
 }
