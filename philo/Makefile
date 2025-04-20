@@ -6,7 +6,7 @@
 #    By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/11 00:34:53 by yabukirento       #+#    #+#              #
-#    Updated: 2025/04/20 20:11:38 by ryabuki          ###   ########.fr        #
+#    Updated: 2025/04/20 20:34:38 by ryabuki          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ OBJS = $(SRCS:.c=.o)
 
 NAME = philo
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -lpthread -g
 INCLUDES = -I./includes
 
 all: $(NAME)

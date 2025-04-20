@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 00:30:36 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/04/20 20:18:09 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/20 21:37:14 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,19 @@ struct	s_info
 {
 	bool			flag_finish;
 	int 			num_philo;
-	int 			time_start;
+	long long 		time_start;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				must_eat_times;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	eat_mutex;
-	pthread_mutex_t	died_mutex;
 	pthread_mutex_t	print_mutex;
 };
 
 struct	s_philo
 {
 	int				count_eat;
-	int				last_eat_time;
+	long long 		last_eat_time;
 	int				index;
 	pthread_t		thread;
 	t_info			*info;
@@ -63,6 +61,8 @@ void	ft_print_status(t_info *info, char *act, int index_philo);
 
 long long get_current_time(void);
 
+void	ft_free_forks(t_info *info);
+void	ft_free_info_without_forks(t_info *info);
 void	ft_free_all(t_info *info, t_philo **philos);
 
 #endif

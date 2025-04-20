@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 00:37:29 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/04/20 20:28:07 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/20 21:55:15 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	ft_eat(t_philo *philo)
 	usleep(philo->info->time_to_eat * 1000);
 	pthread_mutex_unlock(&forks[index]);
 	pthread_mutex_unlock(&forks[index - 1]);
+	philo->last_eat_time = get_current_time();
 }
 
 void	*ft_philo_routine(void *arg)
@@ -78,31 +79,28 @@ void	*ft_philo_routine(void *arg)
 
 int	main(int argc, char **argv)
 {
+	int			i;
 	t_info		info;
 	t_philo		*philos;
 	pthread_t	monitor;
 
-	printf("start!\n");
 	if (ft_check_argv(argc, argv) == EXIT_FAILURE)
 		return (printf("incorect input\n"), EXIT_FAILURE);
-	printf("arg check is done\n");
 	if (ft_init_info(argc, argv, &info) == EXIT_FAILURE)
 		return (printf("init info error\n"), EXIT_FAILURE);
-	printf("init info is done\n");
 	if (ft_init_philos(&philos, &info) == EXIT_FAILURE)
 		return (printf("init philo error\n"), EXIT_FAILURE);
-	printf("init philos is done \n");
-	info.time_start = get_current_time();
-	pthread_create(&monitor, NULL, ft_monitor_routine, philos);
-	printf("thread join\n");
-	for (int i = 0; i < info.num_philo; i++) {
-		if (pthread_join(philos[i].thread, NULL) != 0) {
-			printf("Failed to join thread %d\n", i + 1);
-		}
+	if (pthread_create(&monitor, NULL, ft_monitor_routine, philos) !=0)
+		return (ft_free_all(&info, &philos), printf("Failed to create monitor thread\n"), EXIT_FAILURE);
+	i = 0;
+	while (i < info.num_philo)
+	{
+		if (pthread_detach(philos[i].thread) != 0)
+			printf("Failed to detach thread %d\n", i + 1);
+		i++;
 	}
-	
-	pthread_join(monitor, NULL);
-	printf("free start\n");
+	if (pthread_join(monitor, NULL) != 0)
+		return (ft_free_all(&info, &philos), printf("Failed to join monitor thread\n"), EXIT_FAILURE);
 	ft_free_all(&info, &philos);
-	return (printf("no problem!\n"), EXIT_SUCCESS);
+	return (ft_free_all(&info, &philos), printf("no problem!\n"), EXIT_SUCCESS);
 }
