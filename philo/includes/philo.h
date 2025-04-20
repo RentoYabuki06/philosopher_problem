@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 00:30:36 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/04/09 13:40:53 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/20 20:18:09 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct	s_philo	t_philo;
 
 struct	s_info
 {
+	bool			flag_finish;
 	int 			num_philo;
 	int 			time_start;
 	int				time_to_die;
@@ -37,32 +38,31 @@ struct	s_info
 	pthread_mutex_t	eat_mutex;
 	pthread_mutex_t	died_mutex;
 	pthread_mutex_t	print_mutex;
-	t_philo			*philo;
 };
 
 struct	s_philo
 {
-	bool			left;
-	bool			right;
-	bool			is_death;
 	int				count_eat;
-	int				last_time_eating;
+	int				last_eat_time;
 	int				index;
 	pthread_t		thread;
+	t_info			*info;
 };
 
-bool	ft_loop(t_info **info);
+void	*ft_monitor_routine(void *arg);
+void	*ft_philo_routine(void *arg);
+
+bool	ft_init_info(int argc, char **argv, t_info *info);
+bool	ft_init_philos(t_philo **philos, t_info *info);
+
 int		ft_atoi(const char *str);
-void	ft_free_info(t_info **info);
+int		ft_isdigit(int c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
-bool	*ft_check_alldied(t_info *philo);
-bool	ft_init(int argc, char **argv, t_info **info);
 
-void	ft_philo_thread_create(t_info **info);
-void	ft_philo_thread_join(t_info **info);
-
-void	ft_print_status(t_info **info,char *act, int index_philo);
+void	ft_print_status(t_info *info, char *act, int index_philo);
 
 long long get_current_time(void);
+
+void	ft_free_all(t_info *info, t_philo **philos);
 
 #endif

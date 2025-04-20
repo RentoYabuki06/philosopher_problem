@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_time.c                                         :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/09 12:22:41 by ryabuki           #+#    #+#             */
-/*   Updated: 2025/04/09 13:14:23 by ryabuki          ###   ########.fr       */
+/*   Created: 2025/04/20 20:10:26 by ryabuki           #+#    #+#             */
+/*   Updated: 2025/04/20 20:11:15 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long long get_current_time(void)
+int	ft_isdigit(int c)
 {
-	struct timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	return (tv.tv_usec / 1000 + tv.tv_sec * 1000);
+	if (c >= 48 && c <= 57)
+		return (true);
+	else
+		return (false);
 }

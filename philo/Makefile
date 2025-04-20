@@ -6,17 +6,18 @@
 #    By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/11 00:34:53 by yabukirento       #+#    #+#              #
-#    Updated: 2025/04/09 11:43:35 by ryabuki          ###   ########.fr        #
+#    Updated: 2025/04/20 20:11:38 by ryabuki          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS =	./srcs/main.c \
 		./srcs/init.c \
 		./srcs/free.c \
-		./srcs/loop.c \
-		./srcs/utils/atol.c \
+		./srcs/monitor.c \
+		./srcs/utils/atoi.c \
 		./srcs/utils/strncmp.c \
-		./srcs/philo_utils/check_alldied.c \
+		./srcs/utils/ft_isdigit.c \
+		./srcs/philo_utils/get_time.c \
 		./srcs/philo_utils/print_status.c \
 
 OBJS = $(SRCS:.c=.o)
