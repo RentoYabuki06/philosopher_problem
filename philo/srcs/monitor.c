@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 19:11:11 by ryabuki           #+#    #+#             */
-/*   Updated: 2025/04/20 21:05:45 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/20 23:11:49 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static bool	ft_is_died(int i, t_philo *philos, t_info *info)
 {
 	long long time_to_die;
 
-	time_to_die = info->time_to_die * 1000;
+	time_to_die = info->time_to_die;
 	if(get_current_time() - philos[i].last_eat_time > time_to_die)
 		return (true);
 	return (false);
@@ -30,15 +30,20 @@ void	*ft_monitor_routine(void *arg)
 
 	philos = (t_philo *)arg;
 	info = philos[0].info;
-	while (info->flag_finish == false)
+	while (get_finish(info) == false)
 	{
 		i = 0;
 		while (i < info->num_philo)
 		{
-			if (ft_is_died(i, philos, info) == true)
+			pthread_mutex_lock(&info->eat_mutex);
+			bool is_dead = ft_is_died(i, philos, info);
+			pthread_mutex_unlock(&info->eat_mutex);
+			// printf("[%d] is checkd\n", i);
+			if (is_dead == true)
 			{
 				ft_print_status(info, "die", philos[i].index);
-				info->flag_finish = 1;
+				set_finish(info, true);
+				return (NULL) ;
 			}
 			i++;
 		}
@@ -57,9 +62,7 @@ void	*ft_monitor_routine(void *arg)
 			}
 			if (done == true)
 			{
-				printf("all philosopher is eated!!");
-				pthread_mutex_lock(&info->print_mutex);
-				info->flag_finish = true;
+				set_finish(info, true);
 				return (NULL);
 			}
 		}

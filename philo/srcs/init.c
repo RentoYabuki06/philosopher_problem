@@ -6,11 +6,29 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 12:04:37 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/04/20 21:49:53 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/20 22:54:44 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static bool	ft_init_mutex_without_forks(t_info *info)
+{
+	if (pthread_mutex_init(&(info)->print_mutex, NULL) != 0)
+		return (EXIT_FAILURE);
+	if (pthread_mutex_init(&(info)->died_mutex, NULL) != 0)
+	{
+		pthread_mutex_destroy(&info->print_mutex);
+		return (EXIT_FAILURE);
+	}
+	if (pthread_mutex_init(&(info)->eat_mutex, NULL) != 0)
+	{
+		pthread_mutex_destroy(&info->print_mutex);
+		pthread_mutex_destroy(&info->died_mutex);
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
 
 static bool	ft_init_mutex(t_info *info)
 {
@@ -31,7 +49,7 @@ static bool	ft_init_mutex(t_info *info)
 		}
 		i++;
 	}
-	if (pthread_mutex_init(&(info)->print_mutex, NULL) != 0)
+	if (ft_init_mutex_without_forks(info) == EXIT_FAILURE)
 	{
 		ft_free_forks(info);
 		free(info->forks);
@@ -60,7 +78,6 @@ bool	ft_init_philos(t_philo **philos, t_info *info)
 				pthread_detach((*philos)[i].thread);
 			free(*philos);
 			*philos = NULL;
-			ft_free_all(info, NULL);
 			return (EXIT_FAILURE);
 		}	
 		i++;

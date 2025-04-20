@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 00:30:36 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/04/20 21:37:14 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/20 22:53:32 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ struct	s_info
 	int				must_eat_times;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	died_mutex;
+	pthread_mutex_t	eat_mutex;
 };
 
 struct	s_philo
@@ -63,6 +65,9 @@ long long get_current_time(void);
 
 void	ft_free_forks(t_info *info);
 void	ft_free_info_without_forks(t_info *info);
-void	ft_free_all(t_info *info, t_philo **philos);
+void	ft_free_all(t_info **info_ptr, t_philo **philos_ptr);
+
+bool	get_finish(t_info *info);
+void	set_finish(t_info *info, bool value);
 
 #endif
