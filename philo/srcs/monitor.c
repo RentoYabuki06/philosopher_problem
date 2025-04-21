@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 19:11:11 by ryabuki           #+#    #+#             */
-/*   Updated: 2025/04/21 21:56:06 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/21 22:20:56 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,27 +50,24 @@ static bool	ft_check_all_eat(t_info *info, t_philo *philos)
 	int		count_eat;
 	bool	done;
 
-	if (info->must_eat_times > 0)
+	done = true;
+	i = 0;
+	while (i < info->num_philo)
 	{
-		done = true;
-		i = 0;
-		while (i < info->num_philo)
+		pthread_mutex_lock(&info->eat_mutex);
+		count_eat = philos[i].count_eat;
+		pthread_mutex_unlock(&info->eat_mutex);
+		if (count_eat < info->must_eat_times)
 		{
-			pthread_mutex_lock(&info->eat_mutex);
-			count_eat = philos[i].count_eat;
-			pthread_mutex_unlock(&info->eat_mutex);
-			if (count_eat < info->must_eat_times)
-			{
-				done = false;
-				break ;
-			}
-			i++;
+			done = false;
+			break ;
 		}
-		if (done == true)
-		{
-			set_finish(info, true);
-			return (true);
-		}
+		i++;
+	}
+	if (done == true)
+	{
+		set_finish(info, true);
+		return (true);
 	}
 	return (false);
 }
@@ -86,8 +83,11 @@ void	*ft_monitor_routine(void *arg)
 	{
 		if (ft_check_death(info, philos) == true)
 			return (NULL);
-		if (ft_check_all_eat(info, philos) == true)
-			return (NULL);
+		if (info->must_eat_times > 0)
+		{
+			if (ft_check_all_eat(info, philos) == true)
+				return (NULL);
+		}
 		usleep(1000);
 	}
 	return (NULL);
