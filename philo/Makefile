@@ -6,7 +6,7 @@
 #    By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/11 00:34:53 by yabukirento       #+#    #+#              #
-#    Updated: 2025/04/20 22:22:01 by ryabuki          ###   ########.fr        #
+#    Updated: 2025/04/21 22:28:28 by ryabuki          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ SRCS =	./srcs/main.c \
 		./srcs/init.c \
 		./srcs/free.c \
 		./srcs/monitor.c \
+		./srcs/routine.c \
 		./srcs/utils/atoi.c \
 		./srcs/utils/strncmp.c \
 		./srcs/utils/ft_isdigit.c \
