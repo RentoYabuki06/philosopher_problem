@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 12:02:40 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/04/20 22:50:39 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/21 21:28:39 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_free_forks(t_info *info)
 {
-	int 	i;
+	int	i;
 
 	if (info == NULL || info->forks == NULL)
 		return ;
@@ -42,9 +42,9 @@ void	ft_free_all(t_info **info_ptr, t_philo **philos_ptr)
 {
 	if (info_ptr && *info_ptr)
 	{
-		ft_free_forks(*info_ptr);               // forks の destroy + free
-		ft_free_info_without_forks(*info_ptr);  // その他の mutex destroy + free
-		*info_ptr = NULL;                       // 呼び出し元のポインタも NULL に
+		ft_free_forks(*info_ptr);
+		ft_free_info_without_forks(*info_ptr);
+		*info_ptr = NULL;
 	}
 	if (philos_ptr && *philos_ptr)
 	{
