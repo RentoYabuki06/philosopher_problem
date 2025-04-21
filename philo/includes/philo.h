@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 00:30:36 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/04/21 21:35:17 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/21 22:15:55 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <sys/time.h>
 # include <pthread.h>
 # include <stddef.h>
+# include <stdint.h>
 
 typedef struct s_info	t_info;
 typedef struct s_philo	t_philo;
