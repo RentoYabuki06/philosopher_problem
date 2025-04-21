@@ -6,13 +6,13 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:22:41 by ryabuki           #+#    #+#             */
-/*   Updated: 2025/04/20 19:40:37 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/21 21:30:37 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long long get_current_time(void)
+long long	get_current_time(void)
 {
 	struct timeval	tv;
 
