@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 00:37:29 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/04/21 21:36:40 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/21 21:58:13 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	main(int argc, char **argv)
 	i = 0;
 	while (i < info->num_philo)
 	{
-		if (pthread_detach(philos[i].thread) != 0)
+		if (pthread_join(philos[i].thread, NULL) != 0)
 			printf("Failed to detach thread %d\n", i + 1);
 		i++;
 	}

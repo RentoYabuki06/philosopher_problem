@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 19:11:11 by ryabuki           #+#    #+#             */
-/*   Updated: 2025/04/21 21:42:20 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/21 21:56:06 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static bool	ft_check_death(t_info *info, t_philo *philos)
 static bool	ft_check_all_eat(t_info *info, t_philo *philos)
 {
 	int		i;
+	int		count_eat;
 	bool	done;
 
 	if (info->must_eat_times > 0)
@@ -55,7 +56,10 @@ static bool	ft_check_all_eat(t_info *info, t_philo *philos)
 		i = 0;
 		while (i < info->num_philo)
 		{
-			if (philos[i].count_eat < info->must_eat_times)
+			pthread_mutex_lock(&info->eat_mutex);
+			count_eat = philos[i].count_eat;
+			pthread_mutex_unlock(&info->eat_mutex);
+			if (count_eat < info->must_eat_times)
 			{
 				done = false;
 				break ;
