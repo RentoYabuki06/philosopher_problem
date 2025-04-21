@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 00:37:29 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/04/21 21:24:39 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/21 21:36:40 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,17 @@ static int	ft_check_argv(int argc, char **argv)
 
 static void	ft_take_fork_and_eating(t_philo *philo)
 {
-	int				index;
 	int				right_fork;
 	pthread_mutex_t	*forks;
 
-	index = philo->index;
 	forks = philo->info->forks;
-	right_fork = index;
-	if (index == philo->info->num_philo)
+	right_fork = philo->index;
+	if (philo->index == philo->info->num_philo)
 		right_fork = 0;
 	pthread_mutex_lock(&forks[right_fork]);
 	ft_print_status(philo->info, "take", right_fork);
-	pthread_mutex_lock(&forks[index - 1]);
-	ft_print_status(philo->info, "take", index);
+	pthread_mutex_lock(&forks[philo->index - 1]);
+	ft_print_status(philo->info, "take", philo->index);
 	ft_print_status(philo->info, "eat", philo->index);
 	pthread_mutex_lock(&philo->info->eat_mutex);
 	philo->count_eat++;
@@ -53,12 +51,12 @@ static void	ft_take_fork_and_eating(t_philo *philo)
 	if (get_finish(philo->info) == true)
 	{
 		pthread_mutex_unlock(&forks[right_fork]);
-		pthread_mutex_unlock(&forks[index - 1]);
+		pthread_mutex_unlock(&forks[philo->index - 1]);
 		return ;
 	}
 	usleep(philo->info->time_to_eat * 1000);
 	pthread_mutex_unlock(&forks[right_fork]);
-	pthread_mutex_unlock(&forks[index - 1]);
+	pthread_mutex_unlock(&forks[philo->index - 1]);
 }
 
 void	*pr(void *arg)
@@ -72,7 +70,7 @@ void	*pr(void *arg)
 	{
 		ft_take_fork_and_eating(philo);
 		if (get_finish(philo->info) == true)
-			break;
+			break ;
 		ft_print_status(philo->info, "sleep", philo->index);
 		usleep(philo->info->time_to_sleep * 1000);
 		ft_print_status(philo->info, "think", philo->index);
@@ -88,16 +86,14 @@ int	main(int argc, char **argv)
 	pthread_t	monitor;
 
 	info = malloc(sizeof(t_info));
-	if (info == NULL)
-		return (printf("malloc error\n"), EXIT_FAILURE);
-	if (ft_check_argv(argc, argv) == EXIT_FAILURE)
-		return (free(info), printf("incorect input\n"), EXIT_FAILURE);
+	if (info == NULL || ft_check_argv(argc, argv) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	if (ft_init_info(argc, argv, info) == EXIT_FAILURE)
-		return (free(info), printf("init info error\n"), EXIT_FAILURE);
+		return (free(info), EXIT_FAILURE);
 	if (ft_init_philos(&philos, info) == EXIT_FAILURE)
-		return (ft_free_all(&info, &philos), printf("init philo error\n"), EXIT_FAILURE);
-	if (pthread_create(&monitor, NULL, ft_monitor_routine, philos) !=0)
-		return (ft_free_all(&info, &philos), printf("Failed to create monitor thread\n"), EXIT_FAILURE);
+		return (ft_free_all(&info, &philos), EXIT_FAILURE);
+	if (pthread_create(&monitor, NULL, ft_monitor_routine, philos) != 0)
+		return (ft_free_all(&info, &philos), EXIT_FAILURE);
 	i = 0;
 	while (i < info->num_philo)
 	{
@@ -106,7 +102,7 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	if (pthread_join(monitor, NULL) != 0)
-		return (ft_free_all(&info, &philos), printf("Failed to join monitor thread\n"), EXIT_FAILURE);
+		return (ft_free_all(&info, &philos), EXIT_FAILURE);
 	ft_free_all(&info, &philos);
-	return (ft_free_all(&info, &philos), printf("Philosophers finish eating!\n"), EXIT_SUCCESS);
+	return (ft_free_all(&info, &philos), EXIT_SUCCESS);
 }
