@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 00:37:29 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/04/21 22:28:50 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/21 22:35:39 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@ static int	ft_check_argv(int argc, char **argv)
 
 	if (argc != 5 && argc != 6)
 		return (EXIT_FAILURE);
+	if (ft_atoi(argv[1]) == 1)
+	{
+		printf("1 1 has taken a fork\n");
+		usleep(ft_atoi(argv[2]) * 1000);
+		printf("1 %s died\n", argv[2]);
+		return (EXIT_FAILURE);
+	}
 	i = 1;
 	while (i < argc)
 	{
