@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 00:30:36 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/04/21 21:20:53 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/21 21:23:56 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ struct	s_philo
 };
 
 void		*ft_monitor_routine(void *arg);
-void		*ft_philo_routine(void *arg);
+void		*pr(void *arg);
 
 bool		ft_init_info(int argc, char **argv, t_info *info);
 bool		ft_init_philos(t_philo **philos, t_info *info);

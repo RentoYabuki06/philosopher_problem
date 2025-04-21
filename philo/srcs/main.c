@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 00:37:29 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/04/20 23:08:49 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/21 21:24:39 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	ft_take_fork_and_eating(t_philo *philo)
 	pthread_mutex_unlock(&forks[index - 1]);
 }
 
-void	*ft_philo_routine(void *arg)
+void	*pr(void *arg)
 {
 	t_philo	*philo;
 

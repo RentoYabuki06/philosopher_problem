@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 12:04:37 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/04/20 22:54:44 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/21 21:25:03 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,15 @@ bool	ft_init_philos(t_philo **philos, t_info *info)
 		(*philos)[i].count_eat = 0;
 		(*philos)[i].last_eat_time = info->time_start;
 		(*philos)[i].index = i + 1;
-		if (pthread_create(&(*philos)[i].thread, NULL, ft_philo_routine, &(*philos)[i]) != 0) {
+		if (pthread_create(&(*philos)[i].thread, NULL, pr, &(*philos)[i]) != 0)
+		{
 			printf("Failed to create thread %d\n", i + 1);
 			while (--i > 0)
 				pthread_detach((*philos)[i].thread);
 			free(*philos);
 			*philos = NULL;
 			return (EXIT_FAILURE);
-		}	
+		}
 		i++;
 	}
 	return (EXIT_SUCCESS);
