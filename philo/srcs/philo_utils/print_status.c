@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 21:03:39 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/04/20 23:11:33 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/22 12:36:26 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	ft_print_status(t_info *info, char *act, int index_philo)
 {
 	long long	now_time;
 
+	if (get_finish(info) == true)
+		return ;
 	pthread_mutex_lock(&(info)->print_mutex);
 	now_time = get_current_time() - info->time_start;
 	if (ft_strncmp(act, "take\0", 5) == 0)
