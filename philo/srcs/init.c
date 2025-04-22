@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 12:04:37 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/04/21 21:25:03 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/22 12:55:33 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@ static bool	ft_init_mutex_without_forks(t_info *info)
 	{
 		pthread_mutex_destroy(&info->print_mutex);
 		pthread_mutex_destroy(&info->died_mutex);
+		return (EXIT_FAILURE);
+	}
+	if (pthread_mutex_init(&(info)->fork_mutex, NULL) != 0)
+	{
+		pthread_mutex_destroy(&info->print_mutex);
+		pthread_mutex_destroy(&info->died_mutex);
+		pthread_mutex_destroy(&info->eat_mutex);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
@@ -54,6 +61,22 @@ static bool	ft_init_mutex(t_info *info)
 		ft_free_forks(info);
 		free(info->forks);
 		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
+
+static bool	ft_init_fork_flag(t_info *info)
+{
+	int	i;
+
+	info->fork_available = malloc(sizeof(bool) * info->num_philo);
+	if (info->fork_available == NULL)
+		return (EXIT_FAILURE);
+	i = 0;
+	while (i < info->num_philo)
+	{
+		info->fork_available[i] = true;
+		i++;
 	}
 	return (EXIT_SUCCESS);
 }
@@ -97,6 +120,8 @@ bool	ft_init_info(int argc, char **argv, t_info *info)
 	(info)->must_eat_times = -1;
 	if (argc == 6)
 		(info)->must_eat_times = ft_atoi(argv[5]);
+	if (ft_init_fork_flag(info) == EXIT_FAILURE)
+		return (ft_free_info_without_forks(info), EXIT_FAILURE);
 	if (ft_init_mutex(info) == EXIT_FAILURE)
 		return (ft_free_info_without_forks(info), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
