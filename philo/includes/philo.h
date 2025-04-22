@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 00:30:36 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/04/21 22:15:55 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/22 12:54:33 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_philo	t_philo;
 struct	s_info
 {
 	bool			flag_finish;
+	bool			*fork_available;
 	int				num_philo;
 	long long		time_start;
 	int				time_to_die;
@@ -39,6 +40,7 @@ struct	s_info
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	died_mutex;
 	pthread_mutex_t	eat_mutex;
+	pthread_mutex_t	fork_mutex;
 };
 
 struct	s_philo
