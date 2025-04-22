@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 00:30:36 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/04/22 12:54:33 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/22 14:32:20 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void		*pr(void *arg);
 
 bool		ft_init_info(int argc, char **argv, t_info *info);
 bool		ft_init_philos(t_philo **philos, t_info *info);
+
+void		ft_take_fork_and_eating(t_philo *philo);
 
 int			ft_atoi(const char *str);
 int			ft_isdigit(int c);
