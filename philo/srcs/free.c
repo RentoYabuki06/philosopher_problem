@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 12:02:40 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/04/25 15:12:33 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/25 18:25:38 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ void	ft_free_info_without_forks(t_info *info)
 	pthread_mutex_destroy(&(info)->print_mutex);
 	pthread_mutex_destroy(&(info)->died_mutex);
 	pthread_mutex_destroy(&(info)->eat_mutex);
-	if (info->fork_available)
-		free(info->fork_available);
 	free(info);
 }
 
