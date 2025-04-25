@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 00:30:36 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/04/22 14:32:20 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/25 15:12:11 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ struct	s_info
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	died_mutex;
 	pthread_mutex_t	eat_mutex;
-	pthread_mutex_t	fork_mutex;
 };
 
 struct	s_philo

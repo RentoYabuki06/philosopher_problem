@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 22:27:55 by ryabuki           #+#    #+#             */
-/*   Updated: 2025/04/25 15:07:03 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/25 15:13:07 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ static void	ft_initial_wait(t_philo *philo)
 	random_offset = my_rand(&seed) % 1000;
 	if (philo->index % 2 == 1)
 		delay_base += 3000;
-	usleep((delay_base + random_offset) *2);
+	usleep((delay_base + random_offset) * 2);
 }
-
 
 void	*pr(void *arg)
 {

@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 12:04:37 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/04/22 12:55:33 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/25 15:12:27 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,6 @@ static bool	ft_init_mutex_without_forks(t_info *info)
 	{
 		pthread_mutex_destroy(&info->print_mutex);
 		pthread_mutex_destroy(&info->died_mutex);
-		return (EXIT_FAILURE);
-	}
-	if (pthread_mutex_init(&(info)->fork_mutex, NULL) != 0)
-	{
-		pthread_mutex_destroy(&info->print_mutex);
-		pthread_mutex_destroy(&info->died_mutex);
-		pthread_mutex_destroy(&info->eat_mutex);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
