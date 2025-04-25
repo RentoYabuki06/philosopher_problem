@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 19:11:11 by ryabuki           #+#    #+#             */
-/*   Updated: 2025/04/21 22:20:56 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/25 15:05:48 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	*ft_monitor_routine(void *arg)
 			if (ft_check_all_eat(info, philos) == true)
 				return (NULL);
 		}
-		usleep(1000);
+		usleep(10);
 	}
 	return (NULL);
 }
