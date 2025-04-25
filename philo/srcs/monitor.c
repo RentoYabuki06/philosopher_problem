@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 19:11:11 by ryabuki           #+#    #+#             */
-/*   Updated: 2025/04/25 15:05:48 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/25 18:19:30 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static bool	ft_check_death(t_info *info, t_philo *philos)
 		{
 			ft_print_status(info, "die", philos[i].index);
 			set_finish(info, true);
+			pthread_mutex_unlock(&(info)->print_mutex);
 			return (true);
 		}
 		i++;

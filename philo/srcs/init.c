@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 12:04:37 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/04/25 17:52:25 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/25 18:10:13 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,10 @@ bool	ft_init_info(int argc, char **argv, t_info *info)
 	(info)->time_to_die = ft_atoi(argv[2]);
 	(info)->time_to_eat = ft_atoi(argv[3]);
 	(info)->time_to_sleep = ft_atoi(argv[4]);
-	printf("[%d]\n", info->num_philo);
-	printf("[%d]\n", info->time_to_die);
-	printf("[%d]\n", info->time_to_eat);
-	printf("[%d]\n", info->time_to_sleep);
+	// printf("[%d]\n", info->num_philo);
+	// printf("[%d]\n", info->time_to_die);
+	// printf("[%d]\n", info->time_to_eat);
+	// printf("[%d]\n", info->time_to_sleep);
 	(info)->must_eat_times = -1;
 	if (argc == 6)
 		(info)->must_eat_times = ft_atoi(argv[5]);

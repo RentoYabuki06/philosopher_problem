@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 22:27:55 by ryabuki           #+#    #+#             */
-/*   Updated: 2025/04/25 17:37:31 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/25 18:09:48 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ static void	ft_initial_wait(t_philo *philo)
 			usleep(0);
 		}
 	}
+	else if (philo->info->num_philo > 10)
+	{
+		usleep(philo->index * 100);
+	}
 	else
 	{
 		usleep(philo->index * 1000);
@@ -50,6 +54,7 @@ static void	ft_initial_wait(t_philo *philo)
 void	*pr(void *arg)
 {
 	t_philo			*philo;
+	int				think_time;
 
 	philo = (t_philo *)arg;
 	ft_print_status(philo->info, "think", philo->index);
@@ -60,8 +65,11 @@ void	*pr(void *arg)
 		if (get_finish(philo->info) == true)
 			break ;
 		ft_print_status(philo->info, "sleep", philo->index);
-		usleep((philo->info->time_to_sleep + 1) * 1000);
+		usleep((philo->info->time_to_sleep) * 1000);
 		ft_print_status(philo->info, "think", philo->index);
+		think_time = philo->info->time_to_eat - philo->info->time_to_sleep;
+		if (think_time > 0)
+			usleep((think_time + 1) * 1000);
 	}
 	return (NULL);
 }
