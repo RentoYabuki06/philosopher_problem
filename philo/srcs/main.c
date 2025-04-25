@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 00:37:29 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/04/21 22:35:39 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/25 19:13:52 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	main(int argc, char **argv)
 
 	info = malloc(sizeof(t_info));
 	if (info == NULL || ft_check_argv(argc, argv) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
+		return (printf("Invalid argment !\n"), EXIT_FAILURE);
 	if (ft_init_info(argc, argv, info) == EXIT_FAILURE)
 		return (free(info), EXIT_FAILURE);
 	if (ft_init_philos(&philos, info) == EXIT_FAILURE)

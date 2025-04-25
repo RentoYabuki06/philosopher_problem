@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 22:27:55 by ryabuki           #+#    #+#             */
-/*   Updated: 2025/04/25 18:35:28 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/25 19:14:06 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	ft_initial_wait(t_philo *philo)
 		if (philo->index % 2 == 0)
 			usleep(2000);
 	}
-	else 
+	else
 		usleep(philo->index * 200);
 }
 
