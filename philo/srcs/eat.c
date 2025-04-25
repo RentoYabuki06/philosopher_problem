@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 14:31:43 by ryabuki           #+#    #+#             */
-/*   Updated: 2025/04/25 15:12:47 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/25 17:56:43 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ void	ft_take_fork_and_eating(t_philo *philo)
 	forks = philo->info->forks;
 	ft_decide_forks(philo, &first, &second);
 	pthread_mutex_lock(&forks[first]);
-	ft_print_status(philo->info, "take", first + 1);
+	ft_print_status(philo->info, "take", philo->index);
 	pthread_mutex_lock(&forks[second]);
-	ft_print_status(philo->info, "take", second + 1);
+	ft_print_status(philo->info, "take", philo->index);
 	ft_eat(philo);
 	if (get_finish(philo->info) == true)
 	{

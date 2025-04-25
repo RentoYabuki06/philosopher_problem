@@ -6,7 +6,7 @@
 /*   By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 22:27:55 by ryabuki           #+#    #+#             */
-/*   Updated: 2025/04/25 15:13:07 by ryabuki          ###   ########.fr       */
+/*   Updated: 2025/04/25 17:37:31 by ryabuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,31 @@ unsigned int	my_rand(unsigned int *seed)
 
 static void	ft_initial_wait(t_philo *philo)
 {
-	unsigned int	seed;
-	int				delay_base;
-	int				random_offset;
+	// unsigned int	seed;
+	// int				delay_base;
+	// int				random_offset;
 
-	seed = (unsigned int)(philo->index * 1234 + (uintptr_t)philo);
-	delay_base = philo->index * 10;
-	random_offset = my_rand(&seed) % 1000;
-	if (philo->index % 2 == 1)
-		delay_base += 3000;
-	usleep((delay_base + random_offset) * 2);
+	// seed = (unsigned int)(philo->index * 1234 + (uintptr_t)philo);
+	// delay_base = philo->index * 1000;
+	// random_offset = my_rand(&seed) % 1000;
+	if (philo->info->num_philo % 2 == 0)
+	{
+		if (philo->index % 2 == 0)
+		{
+			usleep(2000);
+		}
+		else
+		{
+			usleep(0);
+		}
+	}
+	else
+	{
+		usleep(philo->index * 1000);
+	}
+	// if (philo->index % 2 == 1)
+	// 	delay_base += 3000;
+	// usleep((delay_base + random_offset) * 10);
 }
 
 void	*pr(void *arg)
