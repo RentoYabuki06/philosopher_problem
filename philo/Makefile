@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ryabuki <ryabuki@student.42.fr>            +#+  +:+       +#+         #
+#    By: yabukirento <yabukirento@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/11 00:34:53 by yabukirento       #+#    #+#              #
-#    Updated: 2025/04/22 14:32:33 by ryabuki          ###   ########.fr        #
+#    Updated: 2025/05/18 18:42:02 by yabukirento      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRCS =	./srcs/main.c \
 OBJS = $(SRCS:.c=.o)
 
 NAME = philo
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror -lpthread -g
 INCLUDES = -I./includes
 
@@ -42,8 +42,8 @@ clean:
 	rm -f $(OBJS)
 
 fclean: clean
-	rm -f $(NAME) $(BONUS_NAME)
+	rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re
